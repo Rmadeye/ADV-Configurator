@@ -1,6 +1,5 @@
 from tkinter import *
 from tkinter import filedialog
-#import vinareader as vr
 import os
 
 window=Tk()
@@ -85,7 +84,6 @@ def collect_data():
     print(outfile, logfile, ox, oy, oz, dx, dy, dz, ncpu, nmod, energy, outname, filename)
     return outfile, logfile, ox, oy, oz, dx, dy, dz, ncpu, nmod, energy, outname, filename
 
-#def create_conf_file(recfile, flexfile, ligfile, ox, oy, oz, dx, dy, dz, ncpu, nmod, energy):
 def create_conf_file():
     outfile, logfile, ox, oy, oz, dx, dy, dz, ncpu, nmod, energy, outname, filename = collect_data()
     with open(filename+'.txt', 'w+') as cfg:
