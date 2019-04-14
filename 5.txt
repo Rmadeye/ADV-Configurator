@@ -1,0 +1,17 @@
+receptor = C:/Users/Rafcio/Dropbox/PAN_Python/DNP.pdbqt
+flex = C:/Users/Rafcio/Dropbox/PAN_Python/lip.pdbqt
+ligand = C:/Users/Rafcio/Dropbox/PAN_Python/LiP-Glu-flex.pdbqt
+
+out = 5.pdbqt
+
+center_x = 1
+center_y = 5
+center_z = 5
+size_x = 5
+size_y = 5
+size_z = 5
+
+log = 5.txt
+cpu = 5
+num_modes = 5
+energy_range = 5
