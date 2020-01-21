@@ -1,4 +1,4 @@
-from src import vina_cfg
+from src_new import app_layout
 
 if __name__=="__main__":
-    vina_cfg.frontend()
+    app_layout.Application()
