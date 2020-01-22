@@ -1,6 +1,6 @@
 from tkinter import *
 from tkinter import filedialog
-from src import create_cfg, file_ops
+from old_src import create_cfg, file_ops
 
 class Application(Frame):
     

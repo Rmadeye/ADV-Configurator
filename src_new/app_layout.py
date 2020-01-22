@@ -1,6 +1,7 @@
 from tkinter import *
 from tkinter import filedialog
-from src import create_cfg, file_ops
+from src_new import app_function
+import subprocess
 
 class Application(Frame):
 
@@ -19,6 +20,40 @@ class Application(Frame):
     def browse_ligand(self):
         self.lig = filedialog.askopenfilename(filetypes=[("Ligand file", "*.pdbqt")])
         self.lig_label = Label(self, text=str(self.lig)).grid(row=2, column=1)
+
+    def run_vina(self):
+        subprocess.run(["vina --config {}".format(self.filename + '.txt')], shell= True)
+
+    def collect_data(self):
+
+        outfile = self.recfile.strip(".pdbqt") + self.lig
+        logfile = self.recfile + self.lig + ".txt"
+        ox = self.xc.get()
+        oy = self.yc.get()
+        oz = self.zc.get()
+        dx = self.xd.get()
+        dy = self.yd.get()
+        dz = self.zd.get()
+        outname = self.outnameg.get()
+        ncpu = self.cpu.get()
+        nmod = self.mod_num.get()
+        energy = self.er.get()
+        self.filename = str(self.filenameg.get())
+        try:
+            self.flex
+        except:
+            self.flex = ''
+
+        try:
+            int(ncpu)
+        except:
+            ncpu = '1'
+
+        return app_function.Configure().create_conf_file(self.recfile, self.flex, self.lig,
+                                                         ox, oy, oz,
+                                                         dx, dy, dz, ncpu,
+                                                         nmod, energy,
+                                                         outname, self.filename)
 
 
 
@@ -88,29 +123,18 @@ class Application(Frame):
         self.filenameg = Entry(self)
         self.filenameg.grid(row=13, column=1)
 
-        self.exit_button = Button(self, text="Exit",
-                                  command=self.exit).grid(row=18, column=1)
-
-        self.collect_button = Button(self, text="Collect data",
-                                     command=print("Henlo")).grid(row=14, column=1)
-
         self.execute_button = Button(self, text="Save cfg file",
-                                     command=print("Henlo")).grid(row=15, column=1)
+                                     command= self.collect_data).grid(row=15, column=1)
 
+        self.run_vina = Button(self, text="Run VINA",
+                                     command= self.run_vina).grid(row=16, column=1)
 
-
+        self.exit_button = Button(self, text="Exit",
+                                  command=self.exit).grid(row=17, column=1)
 
     def __init__(self):
         Frame.__init__(self, master = None)
-        # apptools = ApplicationTools()
         self.pack()
         self.create_widgets()
         self.winfo_toplevel().title("Vina-DB")
         self.mainloop()
-
-
-# class ApplicationTools(Application):
-#
-#
-#     def exit(self):
-#         self.quit()
