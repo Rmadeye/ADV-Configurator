@@ -2,7 +2,7 @@ class Configure:
 
     def create_conf_file(self, recfile, flexfile,
                          ligfile, ox, oy, oz, dx, dy, dz,
-                         ncpu, nmod, energy, outname, filename):
+                         ncpu, nmod, exh, energy, outname, filename):
 
         with open(filename+'.txt', 'w+') as cfg:
             cfg.write("receptor = ")
@@ -37,6 +37,9 @@ class Configure:
             cfg.write("\n")
             cfg.write("size_z = ")
             cfg.write(str(dz))
+            cfg.write("\n")
+            cfg.write("exhaustiveness = ")
+            cfg.write(str(exh))
             cfg.write("\n")
             cfg.write("\n")
             cfg.write("log = ")

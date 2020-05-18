@@ -1,10 +1,10 @@
 from tkinter import *
 from tkinter import filedialog
-from src_new import app_function
+from src import app_function
 import subprocess
 
-class Application(Frame):
 
+class Application(Frame):
 
     def exit(self):
         self.quit()
@@ -22,7 +22,7 @@ class Application(Frame):
         self.lig_label = Label(self, text=str(self.lig)).grid(row=2, column=1)
 
     def run_vina(self):
-        subprocess.run(["vina --config {}".format(self.filename + '.txt')], shell= True)
+        subprocess.run(["vina --config {}".format(self.filename + '.txt')], shell=True)
 
     def collect_data(self):
 
@@ -36,6 +36,7 @@ class Application(Frame):
         ncpu = self.cpu.get()
         nmod = self.mod_num.get()
         energy = self.er.get()
+        exhaust = self.exh.get()
         self.filename = str(self.filenameg.get())
         try:
             self.flex
@@ -50,21 +51,18 @@ class Application(Frame):
         return app_function.Configure().create_conf_file(self.recfile, self.flex, self.lig,
                                                          ox, oy, oz,
                                                          dx, dy, dz, ncpu,
-                                                         nmod, energy,
+                                                         nmod, energy, exhaust,
                                                          outname, self.filename)
-
-
-
 
     def create_widgets(self):
         self.button1 = Button(self, text="Choose receptor",
-                         command=self.browse_receptor).grid(row=0, column=0)
+                              command=self.browse_receptor).grid(row=0, column=0)
 
         self.button2 = Button(self, text="Choose flexible residues",
-                         command=self.browse_flex).grid(row=1, column=0)
+                              command=self.browse_flex).grid(row=1, column=0)
 
         self.button3 = Button(self, text="Choose ligand",
-                         command=self.browse_ligand).grid(row=2,column=0)
+                              command=self.browse_ligand).grid(row=2, column=0)
 
         self.label4 = Label(self, text="X coord").grid(row=3)
 
@@ -111,7 +109,6 @@ class Application(Frame):
         self.er = Entry(self)
         self.er.grid(row=11, column=1)
 
-
         self.label13 = Label(self, text="Exhaustiveness (1-100, default 8)").grid(row=12)
 
         self.exh = Entry(self)
@@ -128,16 +125,16 @@ class Application(Frame):
         self.filenameg.grid(row=15, column=1)
 
         self.execute_button = Button(self, text="Save cfg file",
-                                     command= self.collect_data).grid(row=16, column=1)
+                                     command=self.collect_data).grid(row=16, column=1)
 
         self.run_vina = Button(self, text="Run VINA",
-                                     command= self.run_vina).grid(row=17, column=1)
+                               command=self.run_vina).grid(row=17, column=1)
 
         self.exit_button = Button(self, text="Exit",
                                   command=self.exit).grid(row=18, column=1)
 
     def __init__(self):
-        Frame.__init__(self, master = None)
+        Frame.__init__(self, master=None)
         self.pack()
         self.create_widgets()
         self.winfo_toplevel().title("Vina-DB")
