@@ -26,8 +26,6 @@ class Application(Frame):
 
     def collect_data(self):
 
-        outfile = self.recfile.strip(".pdbqt") + self.lig
-        logfile = self.recfile + self.lig + ".txt"
         ox = self.xc.get()
         oy = self.yc.get()
         oz = self.zc.get()
@@ -113,24 +111,30 @@ class Application(Frame):
         self.er = Entry(self)
         self.er.grid(row=11, column=1)
 
-        self.label13 = Label(self, text="Output pdbqt and log filename").grid(row=12)
+
+        self.label13 = Label(self, text="Exhaustiveness (1-100, default 8)").grid(row=12)
+
+        self.exh = Entry(self)
+        self.exh.grid(row=12, column=1)
+
+        self.label14 = Label(self, text="Output pdbqt and log filename").grid(row=14)
 
         self.outnameg = Entry(self)
-        self.outnameg.grid(row=12, column=1)
+        self.outnameg.grid(row=14, column=1)
 
-        self.label14 = Label(self, text="Config filename").grid(row=13)
+        self.label15 = Label(self, text="Config filename").grid(row=15)
 
         self.filenameg = Entry(self)
-        self.filenameg.grid(row=13, column=1)
+        self.filenameg.grid(row=15, column=1)
 
         self.execute_button = Button(self, text="Save cfg file",
-                                     command= self.collect_data).grid(row=15, column=1)
+                                     command= self.collect_data).grid(row=16, column=1)
 
         self.run_vina = Button(self, text="Run VINA",
-                                     command= self.run_vina).grid(row=16, column=1)
+                                     command= self.run_vina).grid(row=17, column=1)
 
         self.exit_button = Button(self, text="Exit",
-                                  command=self.exit).grid(row=17, column=1)
+                                  command=self.exit).grid(row=18, column=1)
 
     def __init__(self):
         Frame.__init__(self, master = None)
